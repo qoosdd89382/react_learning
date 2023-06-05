@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const EnterUserInfo = ({ onLogin }) => {
+const EnterUserInfo = ({ onChangeUser, onLogin }) => {
     const [ userId, setUserId ] = useState('');
 
     const formOnSubmit = (event) => {
@@ -10,6 +10,7 @@ const EnterUserInfo = ({ onLogin }) => {
 
     const inputOnChange = (event) => {
         setUserId(event.target.value);
+        onChangeUser();
     }
 
     return <form onSubmit={formOnSubmit}>

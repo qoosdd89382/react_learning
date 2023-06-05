@@ -8,7 +8,6 @@ import ShowOptionList from './components/ShowOptionList';
 
 const { 
 	params: paramsApi, 
-	record: recordApi, 
 	result: resultApi, 
 	vote: voteApi 
 } = BackendApi;
@@ -16,7 +15,6 @@ const {
 const App = () => {
 	const [ userId, setUserId ] = useState('');
 	const [ options, setOptions ] = useState([]);
-	const [ records, setRecords ] = useState([]);
 	// const [ bgcolor, setBgcolor ] = useState('#fff');
 
 	// 只取一次
@@ -33,19 +31,21 @@ const App = () => {
 		getOptions();
 	}, []);
 
+	const changeUserHandler = () => {
+		setUserId('');
+	}
 
 	const loginHanlder = (userId) => {
 		setUserId(userId);
 	}
 
 	const postToVote = (newVoteRecords) => {
-		// TODO: 投票post
-		console.log('postToVote', newVoteRecords);
+		voteApi(newVoteRecords);
 	}
 	
 	return (<div>
 		<button>查看結果</button>
-		<EnterUserInfo onLogin={loginHanlder} />
+		<EnterUserInfo onChangeUser={changeUserHandler} onLogin={loginHanlder} />
 		<ShowOptionList options={options} userId={userId} postToVote={postToVote} />
 	</div>);
 }

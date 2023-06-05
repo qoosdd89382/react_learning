@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 {userId: 'Cherry', optionId: '02'}
 */
 
-const ShowOption = ({ option, records, onVoteChange }) => {
+const ShowOption = ({ userId, option, records, onVoteChange }) => {
     const [ selected, setSelected ] = useState(false);
 
     const isOptionSelected = (optionId) => {
@@ -22,8 +22,11 @@ const ShowOption = ({ option, records, onVoteChange }) => {
     useEffect(() => {
         console.log('只在records改變時才重新渲染');
 
-        if (records) {
+        // 有records才渲染
+        if (records && records.length > 0 && records[0].userId == userId) {
             setSelected(isOptionSelected(option.optionId));
+        } else {
+            setSelected(false);
         }
     }, [ records ]);
 

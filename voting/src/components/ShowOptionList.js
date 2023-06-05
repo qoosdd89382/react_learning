@@ -14,30 +14,27 @@ const {
 
 const ShowOptionList = ({ options, userId, postToVote }) => {
 	const [ records, setRecords ] = useState([]);
-    const [ ticket, setTicket ] = useState([]);
     
     // 只在userId改變時才取records
     useEffect(() => {
         console.log('只在userId改變時才取records')
-
-        const getRecords = async () => {
-            if (userId) {
-                const res = await recordApi();
-                if (res.status == '200' && res.data.length > 0) {
-                    setRecords(res.data);
-                }
-            }
-        };
         getRecords();
     }, [ userId ]);
 
-    useEffect(() => {
-        postToVote(records);
-    }, [records]);
-    
+    const getRecords = async () => {
+        if (userId) {
+            const res = await recordApi(userId);
+            if (res.status == '200' && res.data.length > 0) {
+                console.log(res)
+                setRecords([ ...res.data ]);
+            }
+        }
+    };
+
     const handleVoteChange = (optionId) => {
-        setTicket(optionId);
-        setRecords([ { userId, optionId } ]);
+        // 投票後重取
+        postToVote({ userId, optionId });
+        getRecords();
     }
 
     if (!userId || !options) {
@@ -46,13 +43,13 @@ const ShowOptionList = ({ options, userId, postToVote }) => {
 
     const renderedOptions = options.map((option, index) => {
         return <ShowOption 
+            userId={userId}
             key={index} 
             option={option}
             records={records} 
             onVoteChange={handleVoteChange}/>;
     });
     
-
     return (
         <>
             {renderedOptions}
