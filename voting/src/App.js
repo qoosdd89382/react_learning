@@ -15,20 +15,39 @@ const {
 
 const App = () => {
 	const [ userId, setUserId ] = useState('');
-	const [ bgcolor, setBgcolor ] = useState('#fff');
-	
-	// useEffect(() => {
-	// 	getRecords();
-	// }, [ userId ]);
-	
+	const [ options, setOptions ] = useState([]);
+	const [ records, setRecords ] = useState([]);
+	// const [ bgcolor, setBgcolor ] = useState('#fff');
+
+	// 只取一次
+	useEffect(() => {
+		console.log('getOptions * 1');
+
+		const getOptions = async () => {
+			const res = await paramsApi();
+			if (res.status == '200') {
+				setOptions(res.data.options);
+			}
+		}
+
+		getOptions();
+	}, []);
+
+
 	const loginHanlder = (userId) => {
 		setUserId(userId);
 	}
+
+	const postToVote = (newVoteRecords) => {
+		// TODO: 投票post
+		console.log('postToVote', newVoteRecords);
+	}
 	
-	return (<>
+	return (<div>
+		<button>查看結果</button>
 		<EnterUserInfo onLogin={loginHanlder} />
-		<ShowOptionList userId={userId} />
-	</>);
+		<ShowOptionList options={options} userId={userId} postToVote={postToVote} />
+	</div>);
 }
 
 export default App;

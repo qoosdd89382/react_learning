@@ -12,54 +12,53 @@ const {
 	vote: voteApi 
 } = BackendApi;
 
-const ShowOptionList = ({ userId }) => {
+const ShowOptionList = ({ options, userId, postToVote }) => {
 	const [ records, setRecords ] = useState([]);
-	const [ options, setOptions ] = useState([]);
+    const [ ticket, setTicket ] = useState([]);
     
-    const isOptionSelected = (option) => {
-        // TODO:
-        return Object.keys(records).includes(option.optionId)
-    }
-    
-    const mappedOptions = {};
-    options.forEach((option) => {
-        mappedOptions[option.optionId] = { ...option, isSelected: isOptionSelected(option) };
-    });
-    
+    // 只在userId改變時才取records
     useEffect(() => {
+        console.log('只在userId改變時才取records')
+
+        const getRecords = async () => {
+            if (userId) {
+                const res = await recordApi();
+                if (res.status == '200' && res.data.length > 0) {
+                    setRecords(res.data);
+                }
+            }
+        };
         getRecords();
-        getOptions();
-    }, []);
+    }, [ userId ]);
 
-	const getRecords = async () => {
-		if (userId) {
-			const res = await recordApi();
-			if (res.status == '200' && res.data.length > 0) {
-				setRecords(res.data);
-			}
-		}
-	};
-
-	const getOptions = async () => {
-		const res = await paramsApi();
-		if (res.status == '200') {
-			setOptions(res.data.options);
-		}
-	}
-
-    if (!options) {
-        return <></>;
+    useEffect(() => {
+        postToVote(records);
+    }, [records]);
+    
+    const handleVoteChange = (optionId) => {
+        setTicket(optionId);
+        setRecords([ { userId, optionId } ]);
     }
 
+    if (!userId || !options) {
+        return <></>;
+    };
 
     const renderedOptions = options.map((option, index) => {
         return <ShowOption 
             key={index} 
             option={option}
-            mappedOptions={mappedOptions} />;
+            records={records} 
+            onVoteChange={handleVoteChange}/>;
     });
+    
 
-    return (<>{renderedOptions}</>);
+    return (
+        <>
+            {renderedOptions}
+        </>
+    );
+
 }
 
 export default ShowOptionList;

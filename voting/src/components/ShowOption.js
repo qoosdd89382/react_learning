@@ -1,22 +1,52 @@
+import { useState, useEffect } from 'react';
+
 /*
 {
     "optionId": "01",
     "label": "金塊",
     "bgColor": "#000000"
 },
+{userId: 'Cherry', optionId: '02'}
 */
-const ShowOption = ({ option, mappedOptions }) => {
-    const mappedByOptionId = (optionId) => {
-        return mappedOptions[optionId];
+
+const ShowOption = ({ option, records, onVoteChange }) => {
+    const [ selected, setSelected ] = useState(false);
+
+    const isOptionSelected = (optionId) => {
+        return Object.values(records)
+            .map(r => r.optionId)
+            .includes(optionId);
     }
-    const mappedOption = mappedByOptionId(option.optionId);
-console.log(mappedOption)
+
+    // 只在records改變時才重新渲染
+    useEffect(() => {
+        console.log('只在records改變時才重新渲染');
+
+        if (records) {
+            setSelected(isOptionSelected(option.optionId));
+        }
+    }, [ records ]);
+
+    const handleOnChange = (event) => {
+        onVoteChange(event.target.value);
+        setSelected(isOptionSelected(event.target.value));
+    };
+
+    // useEffect(() => {
+    //     console.log('callback')
+    // }, [ selected ]);
+
     return (<>
-        <option name="options" 
-                value={mappedOption.optionId}
-                selected={mappedOption.isSelected}>
-        </option>
-        <label>{mappedOption.label}</label>
+        <label>
+            <input
+                type="radio"
+                name="options" 
+                value={option.optionId}
+                onChange={handleOnChange}
+                checked={selected}>
+            </input>
+            {option.label}
+        </label>
     </>);
 };
 

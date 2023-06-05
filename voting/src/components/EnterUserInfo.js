@@ -14,7 +14,7 @@ const EnterUserInfo = ({ onLogin }) => {
 
     return <form onSubmit={formOnSubmit}>
         <input value={userId} onChange={inputOnChange} />
-        <button type="submit">Vote</button>
+        <button type="submit">Enter</button>
     </form>;
 }
 
