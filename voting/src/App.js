@@ -48,9 +48,13 @@ const App = () => {
 	const colorChangeHandler = (bgColor) => {
 		setBgcolor(bgColor);
 	}
+
+	const onClickResult = async() => {
+		console.log(await resultApi());
+	}
 	
 	return (<div>
-		<button>查看結果</button>
+		<button onClick={onClickResult}>查看結果</button>
 		<EnterUserInfo onChangeUser={changeUserHandler} onLogin={loginHanlder} />
 		<ShowOptionList options={options} userId={userId} postToVote={postToVote} onColorChange={colorChangeHandler}/>
 	</div>);
