@@ -3,6 +3,8 @@ import axios from 'axios';
 const BackendApi = {
     apiUrl: 'localhost:3000',
     service: 'VoteService/vote',
+    tempRecordData: {},
+
     async getApi(uri) {
         return this.apiUrl + this.service + uri;
     },
@@ -41,7 +43,7 @@ const BackendApi = {
     },
     async vote(vote) {
         // return axios.post(this.getApi('/vote'), vote);
-
+        BackendApi.tempRecordData = { [vote.userId]: [ vote ] };
         return {
             "status": "200",
             "message": "OK",
@@ -59,24 +61,26 @@ const BackendApi = {
         return {
             "status": "200",
             "message": "OK",
-            "data": [
-                {
-                    "userId": "Cherry",
-                    "optionId": "02"
-                },
-                {
-                    "userId": "Cherry",
-                    "optionId": "02"
-                },
-                {
-                    "userId": "Cherry",
-                    "optionId": "02"
-                },
-                {
-                    "userId": "Cherry",
-                    "optionId": "02"
-                }
-            ],
+            "data": BackendApi.tempRecordData[userId] || []
+            // || [
+            //     {
+            //         "userId": "Cherry",
+            //         "optionId": "02"
+            //     },
+            //     {
+            //         "userId": "Cherry",
+            //         "optionId": "02"
+            //     },
+            //     {
+            //         "userId": "Cherry",
+            //         "optionId": "02"
+            //     },
+            //     {
+            //         "userId": "Cherry",
+            //         "optionId": "02"
+            //     }
+            // ]
+            ,
             "time": "2023-06-05T15:14:21.307113"
         };
     },
