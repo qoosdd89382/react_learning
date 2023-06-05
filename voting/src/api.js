@@ -43,9 +43,10 @@ const BackendApi = {
     },
     async vote(vote) {
         // return axios.post(this.getApi('/vote'), vote);
-        BackendApi.tempRecordData = { 
-            ...BackendApi.tempRecordData, 
-            [vote.userId]: [ vote ] };
+        BackendApi.tempRecordData = {
+            ...BackendApi.tempRecordData,
+            [vote.userId]: [vote]
+        };
         return {
             "status": "200",
             "message": "OK",
@@ -91,24 +92,39 @@ const BackendApi = {
         return {
             "status": "200",
             "message": "OK",
-            "data": [
-                {
-                    "optionId": "01",
-                    "count": 3
-                },
-                {
-                    "optionId": "02",
-                    "count": 4
-                },
-                {
-                    "optionId": "03",
-                    "count": 0
-                },
-                {
-                    "optionId": "04",
-                    "count": 0
-                }
-            ],
+            "data": Object.values(BackendApi.tempRecordData).reduce((arr, entries) => {
+                entries.forEach((entry) => {
+                  const existingOption = arr.find((item) => item.optionId === entry.optionId);
+                  if (existingOption) {
+                    existingOption.count++;
+                  } else {
+                    arr.push({
+                      optionId: entry.optionId,
+                      count: 1
+                    });
+                  }
+                });
+                return arr;
+              }, [])
+            // [
+            //     {
+            //         "optionId": "01",
+            //         "count": 3
+            //     },
+            //     {
+            //         "optionId": "02",
+            //         "count": 4
+            //     },
+            //     {
+            //         "optionId": "03",
+            //         "count": 0
+            //     },
+            //     {
+            //         "optionId": "04",
+            //         "count": 0
+            //     }
+            // ]
+            ,
             "time": "2023-06-05T15:14:23.660586"
         };
     }
