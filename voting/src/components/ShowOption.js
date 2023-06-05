@@ -9,13 +9,17 @@ import { useState, useEffect } from 'react';
 {userId: 'Cherry', optionId: '02'}
 */
 
-const ShowOption = ({ userId, option, records, onVoteChange }) => {
+const ShowOption = ({ userId, option, records, onVoteChange, onColorChange }) => {
     const [ selected, setSelected ] = useState(false);
 
     const isOptionSelected = (optionId) => {
-        return Object.values(records)
+        const selected = Object.values(records)
             .map(r => r.optionId)
             .includes(optionId);
+        if (selected) {
+            onColorChange(option.bgColor);
+        }
+        return selected;
     }
 
     // 只在records改變時才重新渲染

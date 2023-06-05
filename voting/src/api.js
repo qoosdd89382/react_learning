@@ -19,22 +19,22 @@ const BackendApi = {
                     {
                         "optionId": "01",
                         "label": "金塊",
-                        "bgColor": "#000000"
+                        "bgColor": "gold"
                     },
                     {
                         "optionId": "02",
                         "label": "熱火",
-                        "bgColor": "#000000"
+                        "bgColor": "pink"
                     },
                     {
                         "optionId": "03",
                         "label": "湖人",
-                        "bgColor": "#000000"
+                        "bgColor": "purple"
                     },
                     {
                         "optionId": "04",
                         "label": "勇士",
-                        "bgColor": "#000000"
+                        "bgColor": "blue"
                     }
                 ]
             },
@@ -43,7 +43,9 @@ const BackendApi = {
     },
     async vote(vote) {
         // return axios.post(this.getApi('/vote'), vote);
-        BackendApi.tempRecordData = { [vote.userId]: [ vote ] };
+        BackendApi.tempRecordData = { 
+            ...BackendApi.tempRecordData, 
+            [vote.userId]: [ vote ] };
         return {
             "status": "200",
             "message": "OK",

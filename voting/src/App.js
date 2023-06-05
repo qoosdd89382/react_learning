@@ -15,7 +15,8 @@ const {
 const App = () => {
 	const [ userId, setUserId ] = useState('');
 	const [ options, setOptions ] = useState([]);
-	// const [ bgcolor, setBgcolor ] = useState('#fff');
+	const [ bgcolor, setBgcolor ] = useState('white');
+	document.body.style = `background: ${bgcolor}`;
 
 	// 只取一次
 	useEffect(() => {
@@ -33,6 +34,7 @@ const App = () => {
 
 	const changeUserHandler = () => {
 		setUserId('');
+		setBgcolor('white');
 	}
 
 	const loginHanlder = (userId) => {
@@ -42,11 +44,15 @@ const App = () => {
 	const postToVote = (newVoteRecords) => {
 		voteApi(newVoteRecords);
 	}
+
+	const colorChangeHandler = (bgColor) => {
+		setBgcolor(bgColor);
+	}
 	
 	return (<div>
 		<button>查看結果</button>
 		<EnterUserInfo onChangeUser={changeUserHandler} onLogin={loginHanlder} />
-		<ShowOptionList options={options} userId={userId} postToVote={postToVote} />
+		<ShowOptionList options={options} userId={userId} postToVote={postToVote} onColorChange={colorChangeHandler}/>
 	</div>);
 }
 

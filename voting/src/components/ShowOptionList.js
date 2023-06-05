@@ -12,7 +12,7 @@ const {
 	vote: voteApi 
 } = BackendApi;
 
-const ShowOptionList = ({ options, userId, postToVote }) => {
+const ShowOptionList = ({ options, userId, postToVote, onColorChange }) => {
 	const [ records, setRecords ] = useState([]);
     
     // 只在userId改變時才取records
@@ -47,7 +47,8 @@ const ShowOptionList = ({ options, userId, postToVote }) => {
             key={index} 
             option={option}
             records={records} 
-            onVoteChange={handleVoteChange}/>;
+            onVoteChange={handleVoteChange}
+            onColorChange={onColorChange} />;
     });
     
     return (
