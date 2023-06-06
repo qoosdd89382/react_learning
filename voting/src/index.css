@@ -4,6 +4,8 @@
 #showResult {
     position: absolute;
     right: 0;
+    border: 1px solid gray;
+    font-size: 20px;
 }
 #options, #userInfoForm {
     margin-top:20px;

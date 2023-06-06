@@ -33,6 +33,7 @@ const App = () => {
 		setUserId('');
 		// setBgcolor('white');
 		setImmediatelyShow(false);
+		setResults([]);
 	}
 
 	const loginHanlder = (userId) => {
@@ -56,8 +57,8 @@ const App = () => {
 	
 	return (
 		<div id="app">
-			{question}
 			<ShowResults onShowResult={showResultHandler} />
+			<h1>{question}</h1>
 			<EnterUserInfo
 				onChangeUser={changeUserHandler} onLogin={loginHanlder} />
 			<ShowOptionList 

@@ -43,15 +43,15 @@ const ShowOption = ({   userId, option, records, results,
                 name="options" 
                 value={option.optionId}
                 onChange={handleOnChange}
-                disabled={!userId}
+                // disabled={!userId}
                 checked={isRecordExist && selected}>
             </input>
             {option.label}
-            <ShowOptionResult 
+            {/* <ShowOptionResult 
                 optionId={option.optionId} 
                 alreadyVoted={isRecordExist} 
                 immediatelyShow={immediatelyShow}
-                results={results} />
+                results={results} /> */}
         </label>
     );
 };

@@ -30,7 +30,7 @@ const ShowOptionList = ({   options, userId, results,
         getRecords();
     }
 
-    if (!options) {
+    if (!userId || !options) {
         return null;
     };
 
@@ -41,7 +41,7 @@ const ShowOptionList = ({   options, userId, results,
             option={option}
             records={records} 
             results={results}
-            immediatelyShow={immediatelyShow}
+            // immediatelyShow={immediatelyShow}
             onVoteChange={handleVoteChange}
             // onColorChange={onColorChange} 
             onShowResult={onShowResult} />;
