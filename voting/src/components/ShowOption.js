@@ -1,14 +1,5 @@
 import { useState, useEffect } from 'react';
 
-/*
-{
-    "optionId": "01",
-    "label": "金塊",
-    "bgColor": "#000000"
-},
-{userId: 'Cherry', optionId: '02'}
-*/
-
 const ShowOption = ({ userId, option, records, onVoteChange, onColorChange }) => {
     const [ selected, setSelected ] = useState(false);
 

@@ -1,16 +1,11 @@
 // import './App.css';
-import BackendApi from './api'
+import { paramsApi, resultApi, voteApi } from './api'
 
 import { useState, useEffect } from 'react';
 
 import EnterUserInfo from './components/EnterUserInfo';
 import ShowOptionList from './components/ShowOptionList';
 
-const { 
-	params: paramsApi, 
-	result: resultApi, 
-	vote: voteApi 
-} = BackendApi;
 
 const App = () => {
 	const [ userId, setUserId ] = useState('');

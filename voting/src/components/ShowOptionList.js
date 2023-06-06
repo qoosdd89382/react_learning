@@ -1,16 +1,8 @@
-import BackendApi from '../api'
+import { recordApi } from '../api'
 
 import { useState, useEffect } from 'react';
 
 import ShowOption from "./ShowOption";
-
-
-const { 
-	params: paramsApi, 
-	record: recordApi, 
-	result: resultApi, 
-	vote: voteApi 
-} = BackendApi;
 
 const ShowOptionList = ({ options, userId, postToVote, onColorChange }) => {
 	const [ records, setRecords ] = useState([]);
