@@ -5,54 +5,70 @@ import { useState, useEffect } from 'react';
 
 import EnterUserInfo from './components/EnterUserInfo';
 import ShowOptionList from './components/ShowOptionList';
-
+import ShowResults from './components/ShowResults';
+import ColorfulBackground from './components/ColorfulBackground';
 
 const App = () => {
 	const [ userId, setUserId ] = useState('');
 	const [ options, setOptions ] = useState([]);
-	const [ bgcolor, setBgcolor ] = useState('white');
-	document.body.style = `background: ${bgcolor}`;
+	const [ results, setResults ] = useState([]);
+    const [ immediatelyShow, setImmediatelyShow ] = useState(false);
+	const [ question, setQuestion ] = useState('');
+	// const [ bgcolor, setBgcolor ] = useState('white');
+	// document.body.style = `background: ${bgcolor}`;
 
 	// 只取一次
 	useEffect(() => {
-		console.log('getOptions * 1');
-
 		const getOptions = async () => {
 			const res = await paramsApi();
 			if (res.status == '200') {
 				setOptions(res.data.options);
+				setQuestion(res.data.question);
 			}
 		}
-
 		getOptions();
 	}, []);
 
 	const changeUserHandler = () => {
 		setUserId('');
-		setBgcolor('white');
+		// setBgcolor('white');
+		setImmediatelyShow(false);
 	}
 
 	const loginHanlder = (userId) => {
 		setUserId(userId);
 	}
 
-	const postToVote = (newVoteRecords) => {
+	const postToVoteHandler = (newVoteRecords) => {
 		voteApi(newVoteRecords);
 	}
 
-	const colorChangeHandler = (bgColor) => {
-		setBgcolor(bgColor);
-	}
+	// const colorChangeHandler = (bgColor) => {
+	// 	setBgcolor(bgColor);
+	// }
 
-	const onClickResult = async() => {
-		console.log(await resultApi());
+	const showResultHandler = async() => {
+		const res = await resultApi();
+		
+		setResults(res.data);
+		setImmediatelyShow(true);
 	}
 	
-	return (<div>
-		<button onClick={onClickResult}>查看結果</button>
-		<EnterUserInfo onChangeUser={changeUserHandler} onLogin={loginHanlder} />
-		<ShowOptionList options={options} userId={userId} postToVote={postToVote} onColorChange={colorChangeHandler}/>
-	</div>);
+	return (
+		<div id="app">
+			{question}
+			<ShowResults onShowResult={showResultHandler} />
+			<EnterUserInfo
+				onChangeUser={changeUserHandler} onLogin={loginHanlder} />
+			<ShowOptionList 
+				options={options} userId={userId} 
+				results={results} immediatelyShow={immediatelyShow}
+				onVote={postToVoteHandler} 
+				// onColorChange={colorChangeHandler}
+				onShowResult={showResultHandler} />
+			<ColorfulBackground options={options} results={results} />
+		</div>
+	);
 }
 
 export default App;

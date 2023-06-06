@@ -95,7 +95,8 @@ export async function resultApi() {
     return {
         "status": "200",
         "message": "OK",
-        "data": Object.values(tempRecordData).reduce((arr, entries) => {
+        "data": 
+        Object.values(tempRecordData).reduce((arr, entries) => {
             entries.forEach((entry) => {
                 const existingOption = arr.find((item) => item.optionId === entry.optionId);
                 if (existingOption) {
