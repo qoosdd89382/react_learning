@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import ShowOptionResult from './ShowOptionResult';
 
 const ShowOption = ({   userId, option, records, results, 
-                        immediatelyShow,
                         onVoteChange, 
                         // onColorChange, 
                         onShowResult }) => {
@@ -47,11 +46,6 @@ const ShowOption = ({   userId, option, records, results,
                 checked={isRecordExist && selected}>
             </input>
             {option.label}
-            {/* <ShowOptionResult 
-                optionId={option.optionId} 
-                alreadyVoted={isRecordExist} 
-                immediatelyShow={immediatelyShow}
-                results={results} /> */}
         </label>
     );
 };

@@ -65,12 +65,15 @@ const App = () => {
 			<EnterUserInfo
 				onChangeUser={changeUserHandler} onLogin={loginHanlder} />
 			<ShowOptionList 
-				options={options} userId={userId} 
-				results={results} immediatelyShow={immediatelyShow}
+				options={options} 
+				userId={userId} 
+				results={results} 
 				onVote={postToVoteHandler} 
 				// onColorChange={colorChangeHandler}
 				onShowResult={showResultHandler} />
-			<ColorfulBackground options={options} results={results} />
+			<ColorfulBackground 
+				immediatelyShow={immediatelyShow}
+				options={options} results={results} />
 		</div>
 	);
 }
