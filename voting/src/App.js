@@ -22,9 +22,9 @@ const App = () => {
 		const getOptions = async () => {
 			const res = await paramsApi();
 			console.log(res)
-			if (res.status === 200) {
-				setOptions(res.data.data.options);
-				setQuestion(res.data.data.question);
+			if (res.status == 200) {
+				setOptions(res.data.options);
+				setQuestion(res.data.question);
 			}
 		}
 		getOptions();
@@ -52,11 +52,11 @@ const App = () => {
 	const showResultHandler = async() => {
 		const res = await resultApi();
 		
-		setResults(res.data.data);
+		setResults(res.data);
 		setImmediatelyShow(true);
 	}
 	
-	// resultApi().then(res => console.log(res))
+	// paramsApi().then(res => console.log(res))
 
 	return (
 		<div id="app">

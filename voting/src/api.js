@@ -1,18 +1,15 @@
 import axios from 'axios';
 
 const service = '/VoteService/vote';
-let tempRecordData = {};
+// let tempRecordData = {};
 
 function getApi(endpoint) {
     return service + (endpoint || '');
 }
 
-export async function testApi() {
-    return axios.get(getApi('/params'));
-}
-
 export async function paramsApi() {
-    return axios.get(getApi('/params'));
+    return await axios.get(getApi('/params'))
+        .then(res => res.data);
     // return {
     //     "status": "200",
     //     "message": "OK",
@@ -46,7 +43,8 @@ export async function paramsApi() {
 };
 
 export async function voteApi(vote) {
-    return axios.post(getApi(''), vote);
+    return axios.post(getApi(''), vote)
+        .then(res => res.data);
     // tempRecordData = {
     //     ...tempRecordData,
     //     [vote.userId]: [vote]
@@ -64,7 +62,7 @@ export async function recordApi(userId) {
         params: {
             userId
         }
-    });
+    }).then(res => res.data);
 
     // return {
     //     "status": "200",
@@ -94,7 +92,8 @@ export async function recordApi(userId) {
 };
 
 export async function resultApi() {
-    return axios.get(getApi('/result'));
+    return axios.get(getApi('/result'))
+        .then(res => res.data);
     // return {
     //     "status": "200",
     //     "message": "OK",

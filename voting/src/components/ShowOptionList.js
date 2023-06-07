@@ -18,8 +18,8 @@ const ShowOptionList = ({   options, userId, results,
     const getRecords = async () => {
         if (userId) {
             const res = await recordApi(userId);
-            if (res.status == '200' && res.data.data.length > 0) {
-                setRecords([ ...res.data.data ]);
+            if (res.status == '200' && res.data.length > 0) {
+                setRecords([ ...res.data ]);
             }
         }
     };
