@@ -37,7 +37,6 @@ function ColorfulBackground({ results, options }) {
                         flexBasis: `${(count / totalCount) * 100}%`, }}>
                         <div style={{ 
                                 backgroundColor: 'white', 
-                                width: '150px',
                                 textAlign: 'center',
                             }}>
                             {count ? ( Math.floor((count / totalCount) * 100) + '%') : ''}
