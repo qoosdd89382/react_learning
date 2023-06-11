@@ -1,12 +1,34 @@
-export default function BookShow({ book, onDelete }) {
-    const handleClick = () => {
+import { useState } from 'react';
+import BookEdit from './BookEdit';
+
+export default function BookShow({ book, onEdit, onDelete }) {
+    const [ showEdit, setShowEdit ] = useState(false);
+
+    const handleDeleteClick = () => {
         onDelete(book.id);
-    }
+    };
+
+    const handleEditClick = () => {
+        setShowEdit(!showEdit);
+    };
+
+    const handleSubmit = (id, newTitle) => {
+        onEdit(id, newTitle);
+        setShowEdit(false);
+    };
+
+
+    const content = showEdit 
+        ? <BookEdit book={book} onSubmit={handleSubmit} />
+        : <h3>{book.title}</h3>;
 
     return <div className="book-show">
-        {book.title}
+        {content}
         <div className="actions">
-            <button className="delete" onClick={handleClick}>
+            <button className="edit" onClick={handleEditClick}>
+                Edit
+            </button>
+            <button className="delete" onClick={handleDeleteClick}>
                 Delete
             </button>
         </div>

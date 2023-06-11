@@ -16,7 +16,7 @@ export default function BookCreate({ onCreate }) {
         <div className="book-create">
             <h3>Add a Book</h3>
             <form onSubmit={handleSubmit}>
-                <lable>Title</lable>
+                <label>Title</label>
                 <input className="input" value={title} onChange={handleChange}/>
                 <button className="button">Create</button>
             </form>
